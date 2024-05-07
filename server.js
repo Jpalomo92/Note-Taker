@@ -12,7 +12,7 @@ const apiRoutes = require('./routes/api-routes')
 // process.env.PORT stores the port number on which a web server should listen for incoming connections.
 // process.env.PORT allows the port number to be configured through the environment,
 // making it easy to set up application differently in different environments or cloud providers
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3000;
 
 // Initialize an instance of Express.js
 const app = express();
