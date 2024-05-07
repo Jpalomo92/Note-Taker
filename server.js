@@ -1,31 +1,34 @@
-const express = require("express");
-const path = require("path");
-const apiRouter = require("./route/index.js");
+// Import Express.js
+const express = require('express');
 
+// Import the html routes
+const htmlRoutes = require('./routes/html-routes')
 
+// Import the api routes
+const apiRoutes = require('./routes/api-routes')
+
+// Specify on which port the Express.js server will run.
+// Applications that feature an Express.js back end can use Heroku's PORT environment variable.
+// process.env.PORT stores the port number on which a web server should listen for incoming connections.
+// process.env.PORT allows the port number to be configured through the environment,
+// making it easy to set up application differently in different environments or cloud providers
+const PORT = process.env.PORT || 3001;
+
+// Initialize an instance of Express.js
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware
+// Middleware for parsing JSON and urlencoded form data
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true}));
 
-// API routes
-app.use("/api", apiRouter);
+// Static middleware pointing to the public folder
+app.use(express.static('public'));
 
-// Routes
-app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "/public/index.html"));
-});
+// Middleware to use api routes
+app.use(apiRoutes);
 
-app.get("/notes", (req, res) => {
-    res.sendFile(path.join(__dirname, "/public/notes.html"));
-});
-
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, '/public/index.html'))
-});
+// Middleware to use html routes
+app.use(htmlRoutes);
 
 // Start the server
 app.listen(PORT, () => {
