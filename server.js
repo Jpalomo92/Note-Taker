@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 
 // Static middleware pointing to the public folder
-app.use(express.static('public'));
+app.use(express.static('Public'));
 
 // Middleware to use api routes
 app.use(apiRoutes);
